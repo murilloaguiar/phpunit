@@ -10,29 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 class AvaliadorTest extends TestCase
 {
-    public function testAvaliadorDeveEncontrarOMaiorValorDeLanceEmOrdemCrescente(Leilao $leilao)
+    /**
+     * @dataProvider entregaLeiloes
+     */
+    public function testAvaliadorDeveEncontrarOMaiorValorDeLances(Leilao $leilao)
     {
-        //arruma a casa para testar - Arrange / Given
-        $leilao = $this->leilaoEmOrdemCrescente();
-
-        $leiloeiro  = new Avaliador();
-
-        //executo o códigoa ser testado - Act / When
-        $leiloeiro->avalia($leilao);
-
-        $maiorValor = $leiloeiro->getMaiorValor();
-
-        //verifico se a saída é a esperada - Assert / Then
-        self::assertEquals(2500, $maiorValor);
-
-        
-    }
-
-    public function testAvaliadorDeveEncontrarOMaiorValorDeLanceEmOrdemDecrescente()
-    {
-        //arruma a casa para testar - Arrange / Given
-        $leilao = $this->leilaoEmOrdemDecrescente();
-
         $leiloeiro  = new Avaliador();
 
         //executo o códigoa ser testado - Act / When
@@ -148,5 +130,14 @@ class AvaliadorTest extends TestCase
         $leilao->recebeLance(new Lance($ana, 1700));
 
         return $leilao;
+    }
+
+    public function entregaLeiloes()
+    {
+        return [
+            [$this->leilaoEmOrdemCrescente()],
+            [$this->leilaoEmOrdemDecrescente()],
+            [$this->leilaoEmOrdemAleatoria()]
+        ];
     }
 }
