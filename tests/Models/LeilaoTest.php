@@ -47,6 +47,7 @@ class LeilaoTest extends TestCase{
         static::assertEquals(5500, $leilao->getLances()[array_key_last($leilao->getLances())]->getValor());
 
     }
+    
     /**
      * @dataProvider geraLances
      */
